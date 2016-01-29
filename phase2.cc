@@ -6,9 +6,9 @@
 
 using namespace std;
 
-float epsilon = .1;
-uint32_t rownum = 1024;
-uint32_t colnum = 1024;
+float epsilon = 0;
+uint32_t rownum = 0;
+uint32_t colnum = 0;
 uint32_t iterations = 0;
 
 using Grid = vector<vector<float>>;
@@ -18,7 +18,7 @@ void read_variables(Grid *grid)
 
 		//get iteration number
 		std::cout << "Enter iteration number:";
-		std::cin.read(reinterpret_cast<char *>(&interations), sizeof(uint32_t))
+		std::cin.read(reinterpret_cast<char *>(&iterations), sizeof(uint32_t));
 		//get epsilon
 		std::cout << "Enter epsilon:";
 		std::cin.read(reinterpret_cast<char *>(&epsilon), sizeof(float));
@@ -103,14 +103,6 @@ bool is_stable(Grid * grid) {
 	return true;
 }
 
-Grid *fill_grid()
-{
-	vector (column, 0);
-	
-	
-
-}
-	
 
 Grid * calculate_next(Grid *current) 
 {
@@ -139,7 +131,6 @@ int main()
 	//print_grid(grid); //print initial grid
 
 	
-	print_grid(grid);
 
 	while (!is_stable(grid)) 
 	{
@@ -148,11 +139,9 @@ int main()
 		delete grid;
 		grid = newgrid;
 		++iterations;
- //if (iterations ==179)
-	//	{print(grid);}
-		//std::cout << "Iteration:" << iterations << std::endl;
 	}
 
+	print_grid(grid);
 	
 	return 0;
 }
