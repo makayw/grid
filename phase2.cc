@@ -14,22 +14,18 @@ uint32_t iterations = 0;
 using Grid = vector<vector<float>>;
 
 void read_variables(Grid *grid)
-	{
+{
 
 		//get iteration number
-		std::cout << "Enter iteration number:";
 		std::cin.read(reinterpret_cast<char *>(&iterations), sizeof(uint32_t));
 		//get epsilon
-		std::cout << "Enter epsilon:";
 		std::cin.read(reinterpret_cast<char *>(&epsilon), sizeof(float));
 
 		//get rows
-		std::cout << "Enter number of rows:";
 		std::cin.read(reinterpret_cast<char *>(&rownum), sizeof(uint32_t));
 		grid->resize(rownum);
 
 		//get columns
-		std::cout << "Enter number of columns:";
 		std::cin.read(reinterpret_cast<char *>(&colnum), sizeof(uint32_t));
 		for (uint32_t row=0; row<rownum; ++row)
 		{
@@ -37,16 +33,15 @@ void read_variables(Grid *grid)
 		}
 
 		//get grid
-		std::cout << "Grid:";
 		//Grid* grid;
 		for (uint32_t row=0; row<rownum; ++row)
-		{
+	{
 		for (uint32_t column=0; column < colnum; ++column)
 		{
 		std::cin.read(reinterpret_cast<char *>(&(*grid)[row][column]), sizeof(float));
 		}
-		}
-		}
+	}
+}
 
 void print_grid(Grid * grid)
 {
@@ -60,7 +55,6 @@ void print_grid(Grid * grid)
 		{
 			std::cout.write(reinterpret_cast<char *>(&(*grid)[row][column]), sizeof(float));
 		}
-		std::cout << std::endl;
 	}
 }
 
@@ -127,7 +121,7 @@ int main()
 	read_variables(grid);
 
 	// create, initialize, and print grid
-	initialize(grid);
+	//initialize(grid);
 	//print_grid(grid); //print initial grid
 
 	
