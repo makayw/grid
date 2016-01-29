@@ -1,40 +1,59 @@
 #include <array>
 #include <cmath>
 #include <iostream>
+#include <vector>
+#include <cstdint>
 
-using std::vector;
+using namespace std;
 
 float epsilon = .1;
-int ro = 1024;
-int col = 1024;
-int iterations = 0;
+uint32_t rownum = 1024;
+uint32_t colnum = 1024;
+uint32_t iterations = 0;
 
-using Grid = array<array<float, ro>, col>;
+using Grid = vector<vector<float>>;
 
-void read_variables()
+void read_variables(Grid *grid)
 	{
+
 		//get epsilon
 		std::cout << "Enter epsilon:";
 		std::cin >> epsilon;
+
 		//get rows
 		std::cout << "Enter number of rows:";
-		std::cin >> ro;
+		std::cin >> rownum;
+		grid->resize(rownum);
+
 		//get columns
 		std::cout << "Enter number of columns:";
-		std::cin >> col;
+		std::cin.read >> colnum;
+		for (uint32_t row=0; row<rownum; ++row)
+		{
+			(*grid)[row].resize(colnum);
+		}
+
 		//get grid
 		std::cout << "Grid:";
-		std::cin >> ;
-	}
+		//Grid* grid;
+		for (uint32_t row=0; row<rownum; ++row)
+		{
+		for (uint32_t column=0; column < colnum; ++column)
+		{
+		std::cin.read(reinterpret_cast<char *>(&(*grid)[row][column]), sizeof(float));
+		}
+		}
+		}
+
 void print_grid(Grid * grid)
 {
 	std::cout << "Total Iterations:" << iterations << std::endl;
    std::cout << "Epsilon:" << epsilon << std::endl;
-	std::cout << "Number of rows:" << ro << std::endl;
-	std::cout << "Number of columns:" << col << std::endl;	
-	for (int row=0; row<i; ++row)
+	std::cout << "Number of rows:" << rownum << std::endl;
+	std::cout << "Number of columns:" << colnum << std::endl;	
+	for (uint32_t row=0; row<rownum; ++row)
 	{
-		for (int column=0; column < j; ++column)
+		for (uint32_t column=0; column < colnum; ++column)
 		{
 			std::cout << (*grid)[row][column] << " ";
 		}
@@ -44,31 +63,31 @@ void print_grid(Grid * grid)
 
 void initialize(Grid * grid) 
 {
-	for (int column = 0; column < j; ++column) 
+	for (int column = 0; column < colnum; ++column) 
 	{
 		(*grid)[0][column] = 0;
 	}
 
-	for (int row = 1; row < i-1; ++row) 
+	for (int row = 1; row < rownum-1; ++row) 
 	{
 		(*grid)[row][0] = 0;
-		for (int column = 1; column < j-1; ++column) 
+		for (int column = 1; column < colnum-1; ++column) 
 		{
 			(*grid)[row][column] = 50;
 		}
-		(*grid)[row][j] = 0;
+		(*grid)[row][colnum] = 0;
 	}
 
-	for (int column = 0; column < j; ++column) {
-		(*grid)[i-1][0] = 0;
+	for (int column = 0; column < colnum; ++column) {
+		(*grid)[rownum-1][0] = 0;
 	}
 }
 
 
-bool is_stable(Grid * grid) {
+1bool is_stable(Grid * grid) {
 	// Loop across all the interior points
-	for (int row=1; row<i-1; ++row) { //I'm trying to look at the inside points
-		for (int column = 1; column < j-1; ++column) 
+	for (int row=1; row<rownum-1; ++row) { //I'm trying to look at the inside points
+		for (int column = 1; column < colnum-1; ++column) 
 		{
 			// check to see if the point is stable
 			// if it is stable, check the next point
@@ -81,13 +100,22 @@ bool is_stable(Grid * grid) {
 	return true;
 }
 
+Grid *fill_grid()
+{
+	vector (column, 0);
+	
+	
+
+}
+	
+
 Grid * calculate_next(Grid *current) 
 {
 	Grid * next = new Grid(*current);
 	
-	for (int row=1; row < i-1; ++row) 
+	for (int row=1; row < rownum-1; ++row) 
 	{ 
-		for (int column = 1; column < j-1; ++column) 
+		for (int column = 1; column < colnum-1; ++column) 
 		{
 			(*next)[row][column] = (((*current)[row+1][column]+(*current)[row-1][column]+(*current)[row][column+1]+(*current)[row][column-1])/4);
 		}
@@ -100,8 +128,8 @@ Grid * calculate_next(Grid *current)
 
 int main() 
 	{
-	read_variables();
 	Grid * grid = new Grid();
+	read_variables(grid);
 
 	// create, initialize, and print grid
 	initialize(grid);
