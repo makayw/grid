@@ -134,7 +134,7 @@ int main()
 		grid = newgrid;
 		++iterations;
 	}
-
+	{iterations+1;}
 	print_grid(grid);
 	
 	return 0;
