@@ -136,6 +136,7 @@ int main()
 	}
 	{iterations+1;}
 	print_grid(grid);
+	delete grid;
 	
 	return 0;
 }
